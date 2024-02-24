@@ -2,7 +2,7 @@ import PickDateTime from "./components/PickDateTime.jsx";
 import TimeShow from "./components/TimeShow.jsx";
 import { useState, useEffect } from "react";
 import {
-    combineDateWithTime,
+    combineDateWithTimeWithSeconds,
     formattingDate,
 } from "./utils/dateCalculator.jsx";
 
@@ -22,15 +22,14 @@ function App() {
 
     useEffect(() => {
         const intervalId = setInterval(() => {
-            if (!isRunning) setIsRunning(true);
+            if (runningDate.getTime() > new Date().getTime()) {
+                if (!isRunning) setIsRunning(true);
 
-            let runningDateTimestamp = runningDate.getTime();
-            if (runningDateTimestamp > new Date().getTime()) {
                 setCountResult(formattingDate(runningDate));
             } else {
                 clearInterval(intervalId);
                 // Handle countdown completion
-                if (!isRunning) return;
+                if (!isRunning) return setCountResult("");
 
                 setIsRunning(false);
                 setCountResult("Completed!");
@@ -51,7 +50,16 @@ function App() {
                 date={date}
                 setDate={setDate}
                 startCallback={() => {
-                    setRunningDate(new Date(combineDateWithTime(date, time)));
+                    //getSeconds + 1 cuz of interval delay
+                    setRunningDate(
+                        new Date(
+                            combineDateWithTimeWithSeconds(
+                                date,
+                                time,
+                                new Date().getSeconds() + 1
+                            )
+                        )
+                    );
                 }}
             />
             <TimeShow showString={countResult} />

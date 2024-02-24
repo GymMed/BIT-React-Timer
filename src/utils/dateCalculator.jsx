@@ -20,6 +20,13 @@ function combineDateWithTime(date, time) {
     return dateFormat(date, "yyyy-mm-dd") + `T` + time + ":00";
 }
 
+function combineDateWithTimeWithSeconds(date, time, seconds) {
+    return (
+        dateFormat(date, "yyyy-mm-dd") +
+        `T${time}:${seconds.toString().padStart(2, "0")}`
+    );
+}
+
 function formattingDate(dateTime) {
     const utcDateTimeNow = new Date().getTime();
     const newDateTime = new Date(
@@ -33,4 +40,10 @@ function getLeftTimeString(date) {
     return `${date.getFullYear()} Years ${date.getMonth()} Months ${date.getDate()} Days ${date.getHours()} Hours ${date.getMinutes()} Minutes ${date.getSeconds()} Seconds`;
 }
 
-export { getFinalDate, formattingDate, getLeftTimeString, combineDateWithTime };
+export {
+    getFinalDate,
+    formattingDate,
+    getLeftTimeString,
+    combineDateWithTime,
+    combineDateWithTimeWithSeconds,
+};
