@@ -44,7 +44,7 @@ function App() {
     }, [runningDate]);
 
     return (
-        <div className="from-blue-500 to-blue-700 bg-gradient-to-br container h-screen px-5 flex items-center justify-center flex-col gap-10">
+        <div className="from-blue-500 to-blue-700 bg-gradient-to-br container min-w-full w-screen h-screen px-5 flex items-center justify-center flex-col gap-10">
             <PickDateTime
                 time={time}
                 setTime={setTime}
